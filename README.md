@@ -41,4 +41,17 @@ Modify daemon startup plist
 Copy file to 
 `cp com.monitorontrol.plist /Library/LaunchDaemons/`
 
-`sudo launchctl load -w /Library/LaunchDaemons/com.monitrocontrol.plist`
+Load the `launchd` startup
+
+`sudo launchctl load -w /Library/LaunchDaemons/com.monitorcontrol.plist`
+
+-w flag permanently removes the plist from the Launch Daemon
+`sudo launchctl unload -w /Library/LaunchDaemons/com.monitorcontrol.plist`
+
+Once a script is added onto the Launch Daemon it will auto-start even if the user runs the following command
+
+You can stop the launchctl process by
+`sudo launchctl stop /Library/LaunchDaemons/com.monitorcontrol.plist`
+You can start the launchctl process by
+`sudo launchctl start -w /Library/LaunchDaemons/com.monitorcontrol.plist`
+
