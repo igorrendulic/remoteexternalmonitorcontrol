@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"fmt"
@@ -9,6 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/igorrendulic/monitorcontrol/global"
 	"github.com/igorrendulic/monitorcontrol/models"
 )
 
@@ -101,14 +102,13 @@ func (h *APIHandler) Execute(c *gin.Context) {
 func executeCommand(comm *models.Command, modifiedFlag string) *models.CommandResponse {
 	resp := &models.CommandResponse{}
 
-	cmd := exec.Command("/Users/igor/GO/workspace/monitorcontrol/ddcctl", "-d", comm.MonitorID, "-"+comm.Flag, modifiedFlag)
+	cmd := exec.Command(global.DDCCTLPath, "-d", comm.MonitorID, "-"+comm.Flag, modifiedFlag)
 	out, err := cmd.Output()
 	if err != nil {
 		resp.Code = http.StatusExpectationFailed
 		resp.Message = err.Error()
 		return resp
 	}
-	fmt.Printf("output %s\n", out)
 	resp.Code = http.StatusOK
 	resp.Message = string(out)
 	return resp

@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"context"
@@ -12,9 +12,7 @@ import (
 )
 
 func NewAPIRouter() *gin.Engine {
-	// if conf.Mode == "release" {
 	gin.SetMode(gin.ReleaseMode)
-	// }
 
 	router := gin.Default()
 
@@ -26,8 +24,6 @@ func NewAPIRouter() *gin.Engine {
 		AllowWildcard:    true,
 	}))
 
-	// By default gin.DefaultWriter = os.Stdout
-	// router.Use(gin.Logger())
 	router.Use(gin.Recovery())
 
 	return router
@@ -49,7 +45,6 @@ func Shutdown(server *http.Server, quit <-chan os.Signal, done chan<- bool) {
 }
 
 func Start(router *gin.Engine) *http.Server {
-	//  starting server (Default With the Logger and Recovery middleware already attached)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", 7800),

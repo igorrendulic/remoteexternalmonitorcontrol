@@ -1,21 +1,38 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	"os"
 	"os/signal"
+
+	"github.com/igorrendulic/monitorcontrol/api"
+	"github.com/igorrendulic/monitorcontrol/global"
+	"github.com/igorrendulic/monitorcontrol/server"
 )
 
+// DDCTLPath - path to ddcctl executable
+
 func main() {
+
+	ddcctlPath := flag.String("path", "", "path to ddcctl")
+	flag.Parse()
+	if *ddcctlPath == "" {
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
+
+	global.DDCCTLPath = *ddcctlPath
+
 	// server wait to shutdown monitoring channels
 	done := make(chan bool, 1)
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)
 
-	router := NewAPIRouter()
+	router := server.NewAPIRouter()
 
-	apiHandler := NewAPIHandler()
+	apiHandler := api.NewAPIHandler()
 
 	root := router.Group("/")
 	{
@@ -26,9 +43,9 @@ func main() {
 		root.POST("/commands", apiHandler.Execute)
 	}
 
-	srv := Start(router)
+	srv := server.Start(router)
 	// wait for server shutdown
-	go Shutdown(srv, quit, done)
+	go server.Shutdown(srv, quit, done)
 
 	fmt.Printf("Server is ready to handle requests at %d", 7800)
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
