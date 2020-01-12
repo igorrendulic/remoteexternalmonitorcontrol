@@ -7,6 +7,7 @@ This setup was only tested on **MacOS Catalina 10.15.2**, **MacBook Pro (15-inch
 The iOS app is built for iOS 13. 
 
 ![iOS monitor control screen](https://user-images.githubusercontent.com/17519105/72224723-66598080-3532-11ea-8d00-4a94edb020cd.png "Monitor control screen")
+![gif_video_ios_remote_control](https://user-images.githubusercontent.com/17519105/72227549-bba58a00-3552-11ea-8dc5-633d95446677.gif)
 
 # Components
 
