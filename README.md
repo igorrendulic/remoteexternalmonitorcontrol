@@ -6,6 +6,10 @@ This setup was only tested on **MacOS Catalina 10.15.2**, **MacBook Pro (15-inch
 
 The iOS app is built for iOS 13. 
 
+![iOS monitor control screen](https://user-images.githubusercontent.com/17519105/72224452-a0755300-352f-11ea-859e-5a945c1d6c54.png "Monitor control screen")
+
+![iOS monitor list screen](https://user-images.githubusercontent.com/17519105/72224455-abc87e80-352f-11ea-88dd-6f96b1771c6f.png "Monitor list screen")
+
 # Components
 
 ## Server
