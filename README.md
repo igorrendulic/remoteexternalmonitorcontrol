@@ -1,10 +1,55 @@
 # iOS Remote control for external monitor
 
-## Run on mac start
+iOS Remote control for external monitor is made to remotely control the external monitor connected to the computer. 
 
-Modify daemon startup plist
+This setup was only tested on **MacOS Catalina 10.15.2**, **MacBook Pro (15-inch, 2016) with Intel graphics** and external monitor **ViewSonic VP3268-4K PRO 32" 4K Monitor**. 
 
-```plist
+The iOS app is built for iOS 13. 
+
+# Components
+
+## Server
+
+The server component is written in GO language and it's using [DDC monitor controls for Mac OSX command line](https://github.com/kfix/ddcctl)
+
+## DDC/CI 
+
+DDC/CI protocol implementation for MacOS X is taken kfix repository [DDC monitor controls for Mac OSX command line](https://github.com/kfix/ddcctl)
+
+## iOS APP
+
+iOS App is written in Swift 5 and target iOS 13.0
+
+# Install
+
+- install XCode
+- figure out if your Mac is using an Intel, Nvidia or AMD gpu
+- Install GO
+
+Run build script (provide either intel,nvidia or gpu argument). 
+Example:
+
+`
+./build.sh intel
+`
+
+# Run
+
+Start the server:  
+
+`
+./start.sh
+`
+
+Validate that the server is running, open browser and enter URL: `http://localhost:7800/monitors`
+
+You should see JSON response as an empty array or if you have an external display connected there should be monitor in the list. 
+
+# Start server on macOS X start
+
+Modify daemon startup plist with the path to your `start.sh` script
+
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -46,12 +91,21 @@ Load the `launchd` startup
 `sudo launchctl load -w /Library/LaunchDaemons/com.monitorcontrol.plist`
 
 -w flag permanently removes the plist from the Launch Daemon
+
 `sudo launchctl unload -w /Library/LaunchDaemons/com.monitorcontrol.plist`
 
 Once a script is added onto the Launch Daemon it will auto-start even if the user runs the following command
 
 You can stop the launchctl process by
+
 `sudo launchctl stop /Library/LaunchDaemons/com.monitorcontrol.plist`
 You can start the launchctl process by
+
 `sudo launchctl start -w /Library/LaunchDaemons/com.monitorcontrol.plist`
 
+# Validate that Daemon is running
+
+Open browser and visit this url: 
+`http://localhost:7800/monitors`
+
+Result should display an empty list if currently you don't have an external monitor connected or an external monitors' name
