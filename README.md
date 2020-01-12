@@ -1,6 +1,8 @@
 # iOS Remote control for external monitor
 
-iOS Remote control for external monitor is made to remotely control the external monitor connected to the computer. 
+iOS Remote control for external monitor is made to remotely control the external monitor connected to the computer.
+
+**Motivation:** I use my 4K monitor as bedroom TV and as a part of my software development ansamble. It has Chromecast connected on HDMI port and DisplayPort connecting to MacBook Pro. When done watching Netflix, HBO, ... I don't feel like getting up from my bed to push Off button on the monitor since streaming is all done through the iPhone or iPad.
 
 This setup was only tested on **MacOS Catalina 10.15.2**, **MacBook Pro (15-inch, 2016) with Intel graphics** and external monitor **ViewSonic VP3268-4K PRO 32" 4K Monitor**. 
 
